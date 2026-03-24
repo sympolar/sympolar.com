@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SYMPOLAR LLC — Main Site                                    ║
+  ║  Author: Vincent Gonzalez                                    ║
+  ║  © 2026 SymPolar LLC. All rights reserved.                   ║
+  ║  Version: v3.1.0 — 2026-03                                   ║
+  ║  www.sympolar.com                                            ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+  /* ===== LAST STABLE: v3.0.0 — 2026 ===== */
+
+  /* ===== WORKFLOW STACK =====
+     File:         sympolar-index.html
+     Brand:        SymPolar LLC
+     Author:       Vincent Gonzalez
+     Version:      v3.1.0
+     Boot Order:   1. CSS vars/reset  2. Layout/components  3. renderFAQ()
+                   4. renderGlossary()  5. Scroll/nav observers
+                   6. Quick Contact form handler  7. Cookie banner init
+     Section Map:
+       ~1    HEAD / meta / fonts / CSS
+       ~420  HEADER + mobile nav
+       ~510  HERO
+       ~560  HOW IT WORKS
+       ~600  WHAT'S INCLUDED
+       ~650  ABOUT / TEAM
+       ~690  QUICK CONTACT (NEW v3.1.0)
+       ~760  GET STARTED / intake
+       ~820  FAQ + GLOSSARY
+       ~880  FINAL CTA
+       ~910  FOOTER (updated legal links)
+       ~950  WATERMARK FOOTER
+       ~970  COOKIE BANNER (NEW v3.1.0)
+       ~990  SCRIPT
+     External Deps: Google Fonts, Google Forms POST endpoint
+     Layout Target: 1100px max-width, mobile-first
+     Browser Target: Modern evergreen + iOS Safari
+  ===== END WORKFLOW STACK ===== */
+
+  /* ===== ASSET MANIFEST =====
+     icon.png              — SymPolar polar bear logo (local)
+     Google Fonts          — Syne, DM Sans
+     Google Forms POST     — Quick Contact submission target
+                             ACTION URL: see CONFIG BLOCK in script
+  ===== END ASSET MANIFEST ===== */
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sympolar — Professional Website Design &amp; Hosting</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   SYMPOLAR V3.1 — Full Brand + Legal + Quick Contact
+   Dark luxury · Ice · Precision · Human warmth
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --bg:       #050d16;
+  --bg2:      #070f1c;
+  --bg3:      #091522;
+  --bg4:      #0c1b2a;
+  --txt:      #eef4ff;
+  --muted:    #7a9dbf;
+  --muted2:   #3d5f78;
+  --sky:      #87ceeb;
+  --sky15:    rgba(135,206,235,.15);
+  --sky25:    rgba(135,206,235,.25);
+  --sky40:    rgba(135,206,235,.40);
+  --coral:    #ff7f6e;
+  --mint:     #6de8c8;
+  --gold:     #f5c842;
+  --ice:      #d6eeff;
+  --glass:    rgba(255,255,255,.038);
+  --glassB:   rgba(255,255,255,.07);
+  --glassH:   rgba(255,255,255,.065);
+  --r:        18px;
+  --rs:       12px;
+  --shadow:   0 8px 40px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04);
+  --glow:     0 0 36px rgba(135,206,235,.25);
+  --glow2:    0 0 60px rgba(135,206,235,.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 15% -10%, rgba(135,206,235,.07) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 40% at 85% 105%, rgba(109,232,200,.05) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 60% at 50% 50%,  rgba(135,206,235,.02) 0%, transparent 65%);
+  color: var(--txt);
+  font-family: "DM Sans", system-ui, sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9000;
+  background: rgba(5,13,22,.93);
+  backdrop-filter: blur(28px) saturate(1.4);
+  border-bottom: 1px solid var(--glassB);
+}
+.nav-wrap {
+  max-width: 1160px; margin: 0 auto;
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 66px; gap: 12px;
+}
+.logo {
+  display: flex; align-items: center; gap: 11px;
+  font-family: "Syne", sans-serif; font-weight: 800; font-size: 22px;
+  color: var(--ice); text-decoration: none; flex-shrink: 0;
+  letter-spacing: -.01em;
+}
+.logo img { height: 38px; width: auto; filter: brightness(0) invert(1); }
+.logo-text span { color: var(--sky); }
+
+.nav-links {
+  display: flex; align-items: center; gap: 2px; list-style: none;
+}
+.nav-links a {
+  display: block; padding: 7px 14px; border-radius: 10px;
+  color: var(--muted); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  transition: all .2s; white-space: nowrap; letter-spacing: .01em;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--sky); background: var(--sky15); }
+
+.nav-cta {
+  display: flex; align-items: center; gap: 9px; flex-shrink: 0;
+}
+.btn-nav {
+  padding: 9px 20px; border-radius: 10px; font-size: 13.5px; font-weight: 700;
+  font-family: "Syne", sans-serif;
+  background: linear-gradient(135deg, rgba(135,206,235,.18), rgba(109,232,200,.12));
+  border: 1px solid var(--sky25); color: var(--sky);
+  text-decoration: none; cursor: pointer; transition: all .22s;
+}
+.btn-nav:hover {
+  background: linear-gradient(135deg, rgba(135,206,235,.3), rgba(109,232,200,.22));
+  box-shadow: var(--glow); transform: translateY(-1px);
+}
+
+/* ── AUTH BUTTONS ── */
+.btn-login {
+  padding: 8px 17px; border-radius: 10px; font-size: 13px; font-weight: 600;
+  font-family: "Syne", sans-serif;
+  background: transparent;
+  border: 1px solid var(--glassB); color: var(--muted);
+  text-decoration: none; cursor: pointer; transition: all .22s; white-space: nowrap;
+}
+.btn-login:hover { border-color: var(--sky25); color: var(--sky); background: var(--sky15); }
+.btn-signup {
+  padding: 8px 17px; border-radius: 10px; font-size: 13px; font-weight: 700;
+  font-family: "Syne", sans-serif;
+  background: linear-gradient(135deg, var(--sky), var(--mint));
+  border: none; color: #050d16;
+  text-decoration: none; cursor: pointer; transition: all .22s; white-space: nowrap;
+}
+.btn-signup:hover { opacity: .88; transform: translateY(-1px); box-shadow: var(--glow); }
+.auth-divider { width: 1px; height: 22px; background: var(--glassB); margin: 0 2px; }
+
+.hamburger {
+  display: none; flex-direction: column; justify-content: center; gap: 5px;
+  width: 38px; height: 38px; cursor: pointer;
+  background: none; border: none; padding: 4px;
+}
+.hamburger span { width: 22px; height: 2px; background: var(--sky); border-radius: 2px; transition: all .3s; display: block; }
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+.mobile-menu {
+  display: none; flex-direction: column;
+  background: rgba(5,13,22,.97); backdrop-filter: blur(24px);
+  border-top: 1px solid var(--glassB);
+  padding: 14px 20px 28px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  padding: 13px 14px; border-radius: 10px;
+  color: var(--muted); text-decoration: none; font-size: 16px; font-weight: 500;
+  transition: all .2s;
+}
+.mobile-menu a:hover { color: var(--sky); background: var(--sky15); }
+.mobile-menu hr { border: none; border-top: 1px solid var(--glassB); margin: 12px 0; }
+.mobile-menu .btn-nav { text-align: center; margin-top: 4px; }
+
+/* ── LAYOUT ── */
+main { padding-top: 66px; }
+.section {
+  max-width: 1100px; margin: 0 auto; padding: 90px 24px;
+  opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease;
+}
+.section.visible { opacity: 1; transform: translateY(0); }
+.section-center { text-align: center; }
+
+/* ── TYPE ── */
+h1 {
+  font-family: "Syne", sans-serif; font-weight: 800; line-height: 1.08;
+  font-size: clamp(38px, 6.5vw, 78px); margin-bottom: 22px;
+  letter-spacing: -.02em;
+}
+h2 {
+  font-family: "Syne", sans-serif; font-weight: 800; line-height: 1.12;
+  font-size: clamp(28px, 4.8vw, 52px); margin-bottom: 18px;
+  letter-spacing: -.018em;
+}
+h3 { font-family: "Syne", sans-serif; font-weight: 700; font-size: 17px; margin-bottom: 8px; letter-spacing: -.01em; }
+.grad  { background: linear-gradient(135deg, var(--sky), var(--mint)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.grad2 { background: linear-gradient(135deg, var(--ice), var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.sub { color: var(--muted); font-size: 18px; max-width: 620px; margin: 0 auto 44px; line-height: 1.75; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 16px 36px; border-radius: var(--rs);
+  font-family: "Syne", sans-serif; font-weight: 700; font-size: 16px;
+  text-decoration: none; cursor: pointer; border: none;
+  transition: all .22s; white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, rgba(135,206,235,.2), rgba(109,232,200,.14));
+  border: 1px solid var(--sky25); color: var(--sky);
+}
+.btn-primary:hover { background: linear-gradient(135deg, rgba(135,206,235,.34), rgba(109,232,200,.26)); box-shadow: var(--glow); transform: translateY(-2px); color: var(--ice); }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--glassB); color: var(--muted);
+}
+.btn-outline:hover { border-color: var(--sky25); color: var(--sky); background: var(--sky15); transform: translateY(-1px); }
+.btn-full { width: 100%; }
+.btn-group { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glassB);
+  border-radius: var(--r);
+  padding: 30px;
+  box-shadow: var(--shadow);
+  transition: border-color .25s, background .25s, transform .25s;
+}
+.card:hover { background: var(--glassH); border-color: rgba(135,206,235,.11); transform: translateY(-2px); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+
+/* ── BADGES ── */
+.badge-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+.badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 16px; border-radius: 50px; font-size: 13px; font-weight: 600;
+  border: 1px solid var(--glassB); background: var(--glass); color: var(--muted);
+  letter-spacing: .01em;
+}
+.dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.dot-sky { background: var(--sky); box-shadow: 0 0 8px var(--sky); }
+.dot-mint { background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+.dot-coral { background: var(--coral); }
+
+/* ── STATS ── */
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px; }
+.stat { text-align: center; padding: 26px 16px; }
+.stat-num { font-family: "Syne", sans-serif; font-weight: 800; font-size: clamp(30px,4vw,46px); line-height: 1; }
+.stat-lbl { color: var(--muted); font-size: 13px; margin-top: 7px; line-height: 1.4; }
+
+/* ── HOW IT WORKS STEPS ── */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 22px; margin-top: 44px; counter-reset: step; }
+.step { padding: 30px; counter-increment: step; position: relative; }
+.step::before {
+  content: counter(step);
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky15), rgba(109,232,200,.08));
+  border: 1px solid var(--sky25);
+  font-family: "Syne", sans-serif; font-weight: 800; font-size: 16px; color: var(--sky);
+  margin-bottom: 18px;
+}
+
+/* ── WHAT'S INCLUDED ── */
+.included-card {
+  background: linear-gradient(135deg, rgba(135,206,235,.06), rgba(109,232,200,.03));
+  border: 1px solid var(--sky25);
+  border-radius: var(--r); padding: 44px 40px; max-width: 800px; margin: 40px auto 0;
+  position: relative; overflow: hidden;
+}
+.included-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sky), var(--mint), transparent);
+}
+.included-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: "Syne", sans-serif; font-weight: 700; font-size: 11px;
+  text-transform: uppercase; letter-spacing: .12em; color: var(--sky);
+  margin-bottom: 16px;
+}
+.included-card h3 { font-size: 26px; margin-bottom: 8px; color: var(--ice); }
+.included-card .price { font-family: "Syne", sans-serif; font-weight: 800; font-size: 52px; line-height: 1; color: var(--txt); margin: 18px 0 6px; }
+.included-card .price sup { font-size: 24px; vertical-align: top; margin-top: 10px; }
+.included-card .price sub { font-size: 18px; color: var(--muted); font-weight: 400; }
+.included-card .price-note { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+.feat-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin-bottom: 32px; }
+.feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--muted); }
+.feat-list li::before { content: "✓"; color: var(--mint); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.feat-list li strong { color: var(--txt); font-weight: 500; }
+.more-note {
+  border-top: 1px solid var(--glassB); padding-top: 22px; margin-top: 8px;
+  font-size: 13.5px; color: var(--muted); text-align: center; font-style: italic;
+}
+.more-note a { color: var(--sky); text-decoration: none; }
+.more-note a:hover { text-decoration: underline; }
+
+/* ── TEAM ── */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 22px; margin-top: 44px; }
+.team-card { text-align: center; padding: 38px 28px; }
+.avatar {
+  width: 82px; height: 82px; border-radius: 50%;
+  margin: 0 auto 20px;
+  font-family: "Syne", sans-serif; font-weight: 800; font-size: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--glassB);
+}
+.av-j { background: linear-gradient(135deg, rgba(135,206,235,.2), rgba(135,206,235,.06)); color: var(--sky); }
+.av-v { background: linear-gradient(135deg, rgba(109,232,200,.2), rgba(109,232,200,.06)); color: var(--mint); }
+.team-role { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--sky); margin-bottom: 9px; }
+
+/* ══════════════════════════════════════════════
+   QUICK CONTACT FORM — v3.1.0 NEW
+   ══════════════════════════════════════════════ */
+.qc-card {
+  max-width: 600px; margin: 44px auto 0;
+  background: linear-gradient(135deg, rgba(135,206,235,.06), rgba(109,232,200,.03));
+  border: 1px solid var(--sky25); border-radius: var(--r);
+  padding: 40px 36px; position: relative; overflow: hidden;
+}
+.qc-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sky), var(--mint), transparent);
+}
+.qc-label {
+  display: block; font-family: "Syne", sans-serif; font-weight: 700;
+  font-size: 13px; color: var(--muted); letter-spacing: .05em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.qc-note { font-size: 13px; color: var(--muted2); margin-bottom: 6px; font-style: italic; }
+.qc-field {
+  width: 100%; padding: 13px 16px; border-radius: var(--rs);
+  background: rgba(255,255,255,.04); border: 1px solid var(--glassB);
+  color: var(--txt); font-family: "DM Sans", sans-serif; font-size: 16px;
+  outline: none; transition: border-color .2s, box-shadow .2s;
+  -webkit-appearance: none; appearance: none;
+}
+.qc-field:focus { border-color: var(--sky25); box-shadow: 0 0 0 3px rgba(135,206,235,.08); }
+.qc-field::placeholder { color: var(--muted2); }
+.qc-row { margin-bottom: 20px; }
+.qc-time-group {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+}
+.qc-time-btn {
+  padding: 13px 10px; border-radius: var(--rs);
+  background: rgba(255,255,255,.04); border: 1px solid var(--glassB);
+  color: var(--muted); font-family: "Syne", sans-serif; font-weight: 700; font-size: 13px;
+  cursor: pointer; transition: all .2s; text-align: center;
+}
+.qc-time-btn:hover { border-color: var(--sky25); color: var(--sky); background: var(--sky15); }
+.qc-time-btn.selected { border-color: var(--sky); color: var(--sky); background: var(--sky15); box-shadow: 0 0 0 1px var(--sky25); }
+.qc-error {
+  font-size: 12.5px; color: var(--coral); margin-top: 5px;
+  display: none; font-weight: 500;
+}
+.qc-error.show { display: block; }
+.qc-submit {
+  width: 100%; padding: 16px; border-radius: var(--rs);
+  background: linear-gradient(135deg, rgba(135,206,235,.22), rgba(109,232,200,.16));
+  border: 1px solid var(--sky25); color: var(--sky);
+  font-family: "Syne", sans-serif; font-weight: 800; font-size: 16px;
+  cursor: pointer; transition: all .22s; margin-top: 8px; letter-spacing: .01em;
+}
+.qc-submit:hover { background: linear-gradient(135deg, rgba(135,206,235,.36), rgba(109,232,200,.28)); box-shadow: var(--glow); transform: translateY(-1px); color: var(--ice); }
+.qc-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+.qc-success {
+  display: none; text-align: center; padding: 28px 16px;
+}
+.qc-success.show { display: block; }
+.qc-success-icon { font-size: 44px; margin-bottom: 14px; }
+.qc-success h3 { color: var(--mint); margin-bottom: 8px; font-size: 22px; }
+.qc-success p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+.qc-privacy-note {
+  text-align: center; font-size: 12px; color: var(--muted2);
+  margin-top: 16px; line-height: 1.6;
+}
+.qc-privacy-note a { color: var(--muted); text-decoration: none; }
+.qc-privacy-note a:hover { color: var(--sky); }
+
+/* ── FAQ ── */
+.faq-list { max-width: 780px; margin: 44px auto 0; display: flex; flex-direction: column; gap: 12px; }
+.faq-item { border-radius: var(--r); overflow: hidden; border: 1px solid var(--glassB); background: var(--glass); }
+.faq-q {
+  width: 100%; text-align: left; padding: 21px 26px;
+  background: none; border: none; color: var(--txt);
+  font-family: "Syne", sans-serif; font-weight: 700; font-size: 15px;
+  cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  transition: color .2s;
+}
+.faq-q:hover { color: var(--sky); }
+.faq-icon { font-size: 20px; flex-shrink: 0; transition: transform .3s; color: var(--sky); line-height: 1; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+.faq-item.open .faq-a { max-height: 400px; }
+.faq-a-inner { padding: 0 26px 22px; color: var(--muted); font-size: 15px; line-height: 1.75; }
+.faq-a-inner strong { color: var(--txt); }
+
+/* ── GLOSSARY ── */
+.glossary-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; margin-top: 34px; }
+.gloss-item { padding: 22px 24px; border-radius: var(--rs); }
+.gloss-term { font-family: "Syne", sans-serif; font-weight: 700; font-size: 15px; color: var(--sky); margin-bottom: 7px; }
+.gloss-def { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+/* ── CTA SECTION ── */
+.cta-card {
+  max-width: 640px; margin: 0 auto; padding: 54px 44px;
+  background: linear-gradient(135deg, rgba(135,206,235,.07), rgba(109,232,200,.04));
+  border: 1px solid var(--sky25); border-radius: 24px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sky), var(--mint), transparent);
+}
+
+/* ── INTAKE / LAUNCH CARD ── */
+.launch-card {
+  max-width: 680px; margin: 0 auto;
+  background: linear-gradient(135deg, rgba(135,206,235,.06), rgba(109,232,200,.03));
+  border: 1px solid var(--sky25); border-radius: var(--r);
+  padding: 40px 36px; text-align: center; position: relative; overflow: hidden;
+}
+.launch-card::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sky), var(--mint), transparent);
+}
+.launch-steps {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 0; margin: 28px 0 32px;
+}
+.launch-step {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  min-width: 80px;
+}
+.launch-step-icon {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--sky15); border: 1px solid var(--sky25);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.launch-step-label {
+  font-size: 12px; color: var(--muted); text-align: center; line-height: 1.4;
+  font-weight: 500;
+}
+.launch-step-connector {
+  width: 32px; height: 2px;
+  background: linear-gradient(90deg, var(--sky25), var(--mint));
+  flex-shrink: 0; margin-bottom: 22px;
+}
+.launch-guarantee {
+  margin-top: 20px; font-size: 13px; color: var(--muted2);
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 6px 4px; line-height: 1.8;
+}
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-top: 64px; }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; align-items: start; }
+.footer-brand .fl { font-family: "Syne", sans-serif; font-weight: 800; font-size: 20px; color: var(--ice); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.footer-brand .fl img { height: 28px; filter: brightness(0) invert(1); }
+.footer-brand p { font-size: 13.5px; color: var(--muted2); line-height: 1.65; max-width: 300px; }
+.footer-col h4 { font-family: "Syne", sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted2); margin-bottom: 16px; }
+.footer-col a { display: block; color: var(--muted); font-size: 14px; text-decoration: none; margin-bottom: 9px; transition: color .2s; }
+.footer-col a:hover { color: var(--sky); }
+.footer-bottom {
+  max-width: 1100px; margin: 36px auto 0; padding-top: 22px;
+  border-top: 1px solid var(--glassB);
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 8px 16px;
+  font-size: 13px; color: var(--muted2); text-align: center;
+}
+.footer-bottom a { color: var(--muted2); text-decoration: none; transition: color .2s; }
+.footer-bottom a:hover { color: var(--sky); }
+.footer-sep { color: var(--muted2); opacity: .4; }
+
+/* ── WATERMARK FOOTER ── */
+.watermark-footer {
+  text-align: center; padding: 14px 24px 20px;
+  border-top: 1px solid rgba(255,255,255,.03);
+}
+.wm-inner {
+  display: inline-flex; align-items: center; gap: 9px;
+  opacity: 0.09;
+}
+.wm-bear { height: 18px; width: auto; filter: brightness(0) invert(1); }
+.wm-text { font-size: 12px; color: var(--muted); font-family: "Syne", sans-serif; letter-spacing: .04em; }
+
+/* ── DIVIDER ── */
+.section-divider {
+  max-width: 1100px; margin: 0 auto;
+  border: none; border-top: 1px solid var(--glassB);
+}
+
+/* ── ICE ACCENT LINE ── */
+.accent-line {
+  width: 64px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--sky), var(--mint));
+  margin: 0 auto 32px;
+}
+.accent-line.left { margin: 0 0 24px; }
+
+/* ══════════════════════════════════════════════
+   COOKIE CONSENT BANNER — v3.1.0 NEW
+   AdSense-compliant non-blocking notice
+   ══════════════════════════════════════════════ */
+#cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+  background: rgba(7,15,28,.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glassB);
+  padding: 16px 24px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 16px; flex-wrap: wrap;
+  transform: translateY(100%);
+  transition: transform .4s cubic-bezier(.22,.68,0,1.2);
+}
+#cookie-banner.show { transform: translateY(0); }
+#cookie-banner p {
+  font-size: 13.5px; color: var(--muted); line-height: 1.55;
+  max-width: 700px; flex: 1; min-width: 220px;
+}
+#cookie-banner a { color: var(--sky); text-decoration: none; }
+#cookie-banner a:hover { text-decoration: underline; }
+.cookie-dismiss {
+  padding: 9px 22px; border-radius: 10px;
+  background: linear-gradient(135deg, rgba(135,206,235,.18), rgba(109,232,200,.12));
+  border: 1px solid var(--sky25); color: var(--sky);
+  font-family: "Syne", sans-serif; font-weight: 700; font-size: 13px;
+  cursor: pointer; white-space: nowrap; transition: all .2s; flex-shrink: 0;
+}
+.cookie-dismiss:hover { background: linear-gradient(135deg, rgba(135,206,235,.3), rgba(109,232,200,.22)); box-shadow: var(--glow); }
+
+/* ── MOBILE ── */
+@media (max-width: 900px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .stats-row { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 680px) {
+  .section { padding: 64px 18px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .feat-list { grid-template-columns: 1fr; }
+  .included-card { padding: 32px 20px; }
+  h1 { font-size: clamp(32px,9vw,50px); }
+  h2 { font-size: clamp(26px,7vw,38px); }
+  .btn-group { flex-direction: column; align-items: center; }
+  .btn-group .btn { width: 100%; max-width: 340px; }
+  .cta-card { padding: 36px 20px; }
+  .team-grid { grid-template-columns: 1fr; }
+  .btn { min-height: 52px; font-size: 16px; }
+  .faq-q { padding: 20px 18px; font-size: 14px; min-height: 56px; }
+  .mobile-menu a { min-height: 52px; display: flex; align-items: center; }
+  .stats-row { gap: 10px; }
+  .stat { padding: 20px 12px; }
+  .stat-num { font-size: clamp(26px,7vw,38px); }
+  .footer-inner { gap: 28px; }
+  footer { padding: 40px 18px 52px; }
+  .launch-steps { gap: 8px; }
+  .launch-step-connector { width: 20px; }
+  .launch-card { padding: 28px 18px; }
+  .qc-card { padding: 28px 18px; }
+  .qc-time-group { grid-template-columns: 1fr; }
+  #cookie-banner { flex-direction: column; text-align: center; padding: 18px 18px 22px; }
+}
+@media (max-width: 420px) {
+  .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .badge-row { gap: 7px; }
+  .badge { font-size: 12px; padding: 6px 12px; }
+  .included-card { padding: 24px 16px; }
+  .cta-card { padding: 28px 16px; }
+  h1 { font-size: clamp(28px,8.5vw,44px); }
+  .nav-wrap { height: 60px; }
+  .launch-steps { flex-direction: column; align-items: center; gap: 4px; }
+  .launch-step-connector { width: 2px; height: 20px; background: linear-gradient(180deg, var(--sky25), var(--mint)); margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═════════════════════════════════════════
+     HEADER
+     ═════════════════════════════════════════ -->
+<header>
+  <div class="nav-wrap">
+    <a href="#home" class="logo">
+      <img src="icon.png" alt="Sympolar">
+      <span class="logo-text">Sym<span>polar</span></span>
+    </a>
+
+    <ul class="nav-links" id="desktop-nav">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#services">What's Included</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Quick Contact</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="https://sympolar.github.io/new/signup.html" class="btn-login">Log In</a>
+      <div class="auth-divider"></div>
+      <a href="https://sympolar.github.io/new/signup.html" class="btn-signup">Sign Up</a>
+      <div class="auth-divider" style="margin:0 4px;"></div>
+      <a href="#intake" class="btn-nav">Get Started →</a>
+    </div>
+
+    <button class="hamburger" id="burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="#home">🏠 Home</a>
+    <a href="#how">⚡ How It Works</a>
+    <a href="#services">📦 What's Included</a>
+    <a href="#about">👥 About</a>
+    <a href="#contact">📞 Quick Contact</a>
+    <a href="#faq">💬 FAQ</a>
+    <hr>
+    <a href="#intake" class="btn-nav" style="text-align:center;">🚀 Get Started</a>
+    <div style="display:flex;gap:10px;margin-top:6px;">
+      <a href="https://sympolar.github.io/new/signup.html" class="btn-login" style="flex:1;text-align:center;">Log In</a>
+      <a href="https://sympolar.github.io/new/signup.html" class="btn-signup" style="flex:1;text-align:center;">Sign Up</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- ═════════════════════════════════════════
+     HERO
+     ═════════════════════════════════════════ -->
+<section id="home" class="section section-center visible" style="padding-top:110px;">
+  <div class="badge-row">
+    <span class="badge"><span class="dot dot-mint"></span>No tech skills needed</span>
+    <span class="badge"><span class="dot dot-sky"></span>Live in 3–7 days</span>
+    <span class="badge"><span class="dot dot-coral"></span>Real humans, every step</span>
+  </div>
+
+  <h1>Your Business Deserves a <span class="grad">Professional Website</span></h1>
+  <p class="sub">
+    We design your site, handle everything technical, and keep it running — so you focus on your customers, not your computer.
+  </p>
+
+  <div class="btn-group">
+    <a href="https://sympolar.github.io/new/signup.html" class="btn btn-primary">🚀 Start My Website</a>
+    <a href="#services" class="btn btn-outline">See What's Included</a>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat card"><div class="stat-num grad">$50</div><div class="stat-lbl">per month, all in</div></div>
+    <div class="stat card"><div class="stat-num grad">3–7</div><div class="stat-lbl">days to go live</div></div>
+    <div class="stat card"><div class="stat-num grad">6+</div><div class="stat-lbl">pages built for you</div></div>
+    <div class="stat card"><div class="stat-num grad">0</div><div class="stat-lbl">tech skills required</div></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═════════════════════════════════════════
+     HOW IT WORKS
+     ═════════════════════════════════════════ -->
+<section id="how" class="section section-center">
+  <div class="accent-line"></div>
+  <h2>It's as simple as <span class="grad2">1 – 2 – 3</span></h2>
+  <p class="sub">No confusing setup. No jargon. Just plain-English questions — and we handle the rest.</p>
+  <div class="steps">
+    <div class="card step">
+      <h3>Fill Out a Short Form</h3>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;">Tell us your business name, what you do, and what you need. Takes about 5 minutes. No tech knowledge required.</p>
+    </div>
+    <div class="card step">
+      <h3>We Build Your Site</h3>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;">Our team designs a professional website using your info. You review it, request tweaks, and approve it before anything goes live.</p>
+    </div>
+    <div class="card step">
+      <h3>You Go Live</h3>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;">Your site launches on your own web address. We handle hosting, updates, and support every month — it's all included.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═════════════════════════════════════════
+     WHAT'S INCLUDED
+     ═════════════════════════════════════════ -->
+<section id="services" class="section section-center">
+  <div class="accent-line"></div>
+  <h2>Everything You Need, <span class="grad">Nothing You Don't</span></h2>
+  <p class="sub">One straightforward plan. No tiers. No surprises. Just your professional website, built and maintained by people who care.</p>
+
+  <div class="included-card">
+    <div class="included-tag">✦ &nbsp; The Sympolar Standard</div>
+    <h3>Complete Website Package</h3>
+    <div class="price"><sup>$</sup>50<sub>/mo</sub></div>
+    <div class="price-note">Everything included. Hosting, support, updates — no extras required to get online.</div>
+
+    <ul class="feat-list">
+      <li><strong>Custom-designed website</strong> — up to 6 pages</li>
+      <li><strong>Mobile-friendly</strong> — looks great on any device</li>
+      <li><strong>Hosting included</strong> — no separate bills</li>
+      <li><strong>Your own domain</strong> — web address setup &amp; connected</li>
+      <li><strong>Contact form</strong> — so customers can reach you directly</li>
+      <li><strong>Google visibility setup</strong> — basic local search optimization</li>
+      <li><strong>Monthly updates</strong> — hours, photos, services, anything</li>
+      <li><strong>Technical support</strong> — real humans answer your questions</li>
+      <li><strong>SSL security</strong> — the padlock icon, included</li>
+      <li><strong>Fast load times</strong> — optimized for speed</li>
+    </ul>
+
+    <div class="more-note">
+      Need something beyond the basics? <a href="https://sympolar.github.io/new/signup.html">Get in touch</a> — our team will talk you through options. There's no sales pressure and no obligation.
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═════════════════════════════════════════
+     ABOUT / TEAM
+     ═════════════════════════════════════════ -->
+<section id="about" class="section section-center">
+  <div class="accent-line"></div>
+  <h2>Built by People <span class="grad2">Who Get It</span></h2>
+  <p class="sub">We're a small team on a mission: help underrepresented and small business owners get online without stress, big budgets, or a computer science degree.</p>
+  <div class="team-grid" style="max-width:640px;margin:44px auto 0;grid-template-columns:repeat(2,1fr);">
+    <div class="card team-card">
+      <div class="avatar av-j">J</div>
+      <div class="team-role">Founder &amp; Lead Designer</div>
+      <h3>Josh</h3>
+      <p style="color:var(--muted);font-size:14px;margin-top:7px;line-height:1.65;">Committed to delivering quality from the top down in every facet of our infrastructure — because our clients deserve nothing less.</p>
+    </div>
+    <div class="card team-card">
+      <div class="avatar av-v">V</div>
+      <div class="team-role">Tech &amp; Systems</div>
+      <h3>Vince</h3>
+      <p style="color:var(--muted);font-size:14px;margin-top:7px;line-height:1.65;">Builds the systems behind the scenes so your site loads fast, stays secure, and works harder for your business.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═════════════════════════════════════════
+     QUICK CONTACT — v3.1.0 NEW
+     ═════════════════════════════════════════ -->
+<section id="contact" class="section section-center">
+  <div class="accent-line"></div>
+  <h2>Want Us to <span class="grad">Call You?</span></h2>
+  <p class="sub">Leave your number or email and pick the best time. We'll reach out — no preparation needed on your end.</p>
+
+  <div class="qc-card">
+
+    <!-- SUCCESS STATE -->
+    <div class="qc-success" id="qc-success">
+      <div class="qc-success-icon">✅</div>
+      <h3>Got it — we'll be in touch!</h3>
+      <p>We received your info and will reach out during your preferred time. No preparation needed — we just have a quick conversation.</p>
+    </div>
+
+    <!-- FORM STATE -->
+    <div id="qc-form-body">
+
+      <!-- CONTACT: PHONE OR EMAIL -->
+      <div class="qc-row">
+        <label class="qc-label" for="qc-contact">Phone number or email address</label>
+        <p class="qc-note">One or the other — whichever works best for you.</p>
+        <input
+          type="text"
+          id="qc-contact"
+          class="qc-field"
+          placeholder="e.g. 555-867-5309  or  jane@example.com"
+          autocomplete="off"
+          maxlength="120"
+        >
+        <div class="qc-error" id="qc-contact-err">Please enter a phone number or email address.</div>
+      </div>
+
+      <!-- BEST TIME -->
+      <div class="qc-row">
+        <label class="qc-label">Best time to reach you</label>
+        <div class="qc-time-group">
+          <button type="button" class="qc-time-btn" data-time="Morning (8am–12pm)" onclick="selectTime(this)">🌅 Morning</button>
+          <button type="button" class="qc-time-btn" data-time="Midday (12pm–4pm)"  onclick="selectTime(this)">☀️ Midday</button>
+          <button type="button" class="qc-time-btn" data-time="Evening (4pm–8pm)"  onclick="selectTime(this)">🌙 Evening</button>
+        </div>
+        <div class="qc-error" id="qc-time-err">Please select a preferred time.</div>
+      </div>
+
+      <!-- SUBMIT -->
+      <button type="button" class="qc-submit" id="qc-submit-btn" onclick="submitQuickContact()">
+        📞 Contact Me
+      </button>
+
+      <p class="qc-privacy-note">
+        We only use this info to reach out to you.<br>
+        See our <a href="sympolar-privacy.html">Privacy Policy</a> for details.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═════════════════════════════════════════
+     GET STARTED
+     ═════════════════════════════════════════ -->
+<section id="intake" class="section section-center">
+  <div class="accent-line"></div>
+  <h2>Ready to <span class="grad">Get Started?</span></h2>
+  <p class="sub">One easy form. Takes about 2 minutes. No tech knowledge needed — and no commitment until you love what we build.</p>
+
+  <div class="launch-card">
+    <p style="color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:0;">Here's exactly what happens when you click below:</p>
+
+    <div class="launch-steps">
+      <div class="launch-step">
+        <div class="launch-step-icon">📝</div>
+        <div class="launch-step-label">Fill out our quick form</div>
+      </div>
+      <div class="launch-step-connector"></div>
+      <div class="launch-step">
+        <div class="launch-step-icon">🏗️</div>
+        <div class="launch-step-label">We build your site</div>
+      </div>
+      <div class="launch-step-connector"></div>
+      <div class="launch-step">
+        <div class="launch-step-icon">✅</div>
+        <div class="launch-step-label">You review and approve</div>
+      </div>
+      <div class="launch-step-connector"></div>
+      <div class="launch-step">
+        <div class="launch-step-icon">🌐</div>
+        <div class="launch-step-label">Your site goes live</div>
+      </div>
+    </div>
+
+    <a href="https://sympolar.github.io/new/signup.html"
+       class="btn btn-primary"
+       style="font-size:17px;padding:18px 48px;">
+      ✨ Start My Website — It's Free to Try
+    </a>
+
+    <div class="launch-guarantee">
+      <span>🔒 No credit card</span>
+      <span style="color:var(--glassB);">·</span>
+      <span>⚡ Response within 1 business day</span>
+      <span style="color:var(--glassB);">·</span>
+      <span>💯 No commitment until you're happy</span>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═════════════════════════════════════════
+     FAQ + GLOSSARY
+     ═════════════════════════════════════════ -->
+<section id="faq" class="section">
+  <div class="section-center">
+    <div class="accent-line"></div>
+    <h2><span class="grad">FAQ</span> — Plain-English Answers</h2>
+    <p class="sub">Every answer is jargon-free. If you still have questions, <a href="mailto:hello@sympolar.com" style="color:var(--sky);">just email us</a>.</p>
+  </div>
+
+  <div class="faq-list" id="faq-list"></div>
+
+  <div style="margin-top:70px;">
+    <div class="section-center">
+      <h3 style="font-size:28px;margin-bottom:10px;">🗂️ Website Words <span class="grad">Glossary</span></h3>
+      <p style="color:var(--muted);font-size:15px;margin-bottom:6px;">Plain-language definitions for every term you'll encounter.</p>
+    </div>
+    <div class="glossary-grid" id="glossary-grid"></div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ═════════════════════════════════════════
+     FINAL CTA
+     ═════════════════════════════════════════ -->
+<section class="section section-center" style="padding-bottom:110px;">
+  <div class="cta-card">
+    <div class="accent-line" style="margin-bottom:24px;"></div>
+    <h2 style="font-size:clamp(28px,4vw,42px);margin-bottom:14px;">Your website is waiting.</h2>
+    <p style="color:var(--muted);font-size:16px;max-width:420px;margin:0 auto 32px;line-height:1.7;">
+      Professional design. Real humans. $50 a month. No commitment until you're happy with what we build.
+    </p>
+    <a href="https://sympolar.github.io/new/signup.html" class="btn btn-primary" style="font-size:17px;padding:18px 44px;">🚀 Start My Website →</a>
+    <p style="color:var(--muted2);font-size:12.5px;margin-top:18px;">No credit card. No tech skills. We respond within 1 business day.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ═════════════════════════════════════════
+     MAIN FOOTER — updated v3.1.0 (legal links)
+     ═════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="fl"><img src="icon.png" alt="Sympolar"> Sympolar</div>
+      <p>Affordable website design &amp; hosting for small and underrepresented businesses. Built by humans, powered by care.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="#home">Home</a>
+      <a href="#how">How It Works</a>
+      <a href="#services">What's Included</a>
+      <a href="#about">About</a>
+      <a href="#contact">Quick Contact</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Get Started</h4>
+      <a href="https://sympolar.github.io/new/signup.html">🚀 Start My Website</a>
+      <h4 style="margin-top:20px;">Contact</h4>
+      <a href="mailto:hello@sympolar.com">hello@sympolar.com</a>
+      <a href="https://www.sympolar.com">sympolar.com</a>
+      <h4 style="margin-top:20px;">Legal</h4>
+      <a href="sympolar-privacy.html">Privacy Policy</a>
+      <a href="sympolar-terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <!-- LEGAL FOOTER BAR — v3.1.0 -->
+  <div class="footer-bottom">
+    <span>&copy; 2026 Sympolar LLC. All rights reserved.</span>
+    <span class="footer-sep">·</span>
+    <a href="sympolar-privacy.html">Privacy Policy</a>
+    <span class="footer-sep">·</span>
+    <a href="sympolar-terms.html">Terms of Service</a>
+    <span class="footer-sep">·</span>
+    <span>Professional website design &amp; hosting.</span>
+  </div>
+</footer>
+
+<!-- ═════════════════════════════════════════
+     WATERMARK
+     ═════════════════════════════════════════ -->
+<footer class="watermark-footer">
+  <div class="wm-inner">
+    <img src="icon.png" alt="Sympolar polar bear" class="wm-bear">
+    <span class="wm-text">www.sympolar.com | © 2026 SymPolar LLC™</span>
+  </div>
+</footer>
+
+<!-- ═════════════════════════════════════════
+     COOKIE CONSENT BANNER — v3.1.0 NEW
+     AdSense-compliant non-blocking notice
+     READS: localStorage('sp_cookie_ok')
+     WRITES: localStorage('sp_cookie_ok')
+     ═════════════════════════════════════════ -->
+<div id="cookie-banner" role="region" aria-label="Cookie notice">
+  <p>
+    We use cookies to serve ads and improve your experience. By using this site, you agree to our
+    <a href="sympolar-privacy.html">Privacy Policy</a>
+    &amp;
+    <a href="sympolar-terms.html">Terms of Service</a>.
+  </p>
+  <button class="cookie-dismiss" onclick="dismissCookieBanner()" aria-label="Dismiss cookie notice">Got it</button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   SYMPOLAR MAIN SITE — Script v3.1.0
+   Author: Vincent Gonzalez | © 2026 SymPolar LLC
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── CONFIG BLOCK ──────────────────────────────────────────
+   GF_ACTION      Google Forms formResponse POST URL
+   GF_ENTRY_CONTACT  Entry ID for "Contact (phone/email)" field
+   GF_ENTRY_TIME     Entry ID for "Best time" field
+
+   HOW TO GET YOUR ENTRY IDs:
+   1. Open your Google Form in a browser
+   2. Click the 3-dot menu → "Get pre-filled link"
+   3. Fill in dummy values in each field → click "Get link"
+   4. Copy the URL — it will contain ?entry.XXXXXXXXXX=...
+   5. Replace the placeholder values below with those numbers
+   ─────────────────────────────────────────────────────────── */
+var CONFIG = {
+  GF_ACTION:        "https://docs.google.com/forms/d/e/1FAIpQLSff49qRgGv0qI7q34d7eh7f6VgfZ1eIHh285s-rtLSHvK1V4g/formResponse",
+  GF_ENTRY_CONTACT: "entry.XXXXXXXXXX",   // REPLACE with real entry ID
+  GF_ENTRY_TIME:    "entry.YYYYYYYYYY"    // REPLACE with real entry ID
+};
+
+/* ── QUICK CONTACT STATE ──
+   READS:  #qc-contact value, selectedTime var
+   WRITES: #qc-success, #qc-form-body visibility
+*/
+var selectedTime = "";
+
+/* selectTime — toggles time button selection
+   DEPENDS ON: .qc-time-btn elements */
+function selectTime(btn) {
+  document.querySelectorAll(".qc-time-btn").forEach(function(b) {
+    b.classList.remove("selected");
+  });
+  btn.classList.add("selected");
+  selectedTime = btn.getAttribute("data-time");
+  document.getElementById("qc-time-err").classList.remove("show");
+}
+
+/* submitQuickContact — validates and posts to Google Forms
+   READS:  #qc-contact, selectedTime
+   WRITES: #qc-success, #qc-form-body, #qc-submit-btn */
+function submitQuickContact() {
+  var contactVal = (document.getElementById("qc-contact").value || "").trim();
+  var valid = true;
+
+  /* Validate: contact field must not be empty */
+  if (!contactVal) {
+    document.getElementById("qc-contact-err").classList.add("show");
+    valid = false;
+  } else {
+    document.getElementById("qc-contact-err").classList.remove("show");
+  }
+
+  /* Validate: time must be selected */
+  if (!selectedTime) {
+    document.getElementById("qc-time-err").classList.add("show");
+    valid = false;
+  } else {
+    document.getElementById("qc-time-err").classList.remove("show");
+  }
+
+  if (!valid) { return; }
+
+  var btn = document.getElementById("qc-submit-btn");
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+
+  /* POST to Google Forms via no-cors fetch (standard GForms pattern) */
+  var formData = new FormData();
+  formData.append(CONFIG.GF_ENTRY_CONTACT, contactVal);
+  formData.append(CONFIG.GF_ENTRY_TIME, selectedTime);
+
+  fetch(CONFIG.GF_ACTION, {
+    method: "POST",
+    mode: "no-cors",    // Google Forms always requires no-cors
+    body: formData
+  }).then(function() {
+    /* no-cors returns opaque response — treat any resolution as success */
+    document.getElementById("qc-form-body").style.display = "none";
+    document.getElementById("qc-success").classList.add("show");
+  }).catch(function(err) {
+    console.error("submitQuickContact: fetch failed —", err);
+    btn.disabled = false;
+    btn.textContent = "📞 Contact Me";
+    /* Surface visible fallback — never a blank/frozen state */
+    document.getElementById("qc-contact-err").textContent = "Something went wrong. Please email us at hello@sympolar.com";
+    document.getElementById("qc-contact-err").classList.add("show");
+  });
+}
+
+/* ── COOKIE BANNER ────────────────────────────────────────
+   READS:  localStorage('sp_cookie_ok')
+   WRITES: localStorage('sp_cookie_ok') */
+function initCookieBanner() {
+  try {
+    if (!localStorage.getItem("sp_cookie_ok")) {
+      setTimeout(function() {
+        document.getElementById("cookie-banner").classList.add("show");
+      }, 900);
+    }
+  } catch(e) {
+    /* localStorage blocked (private mode) — show banner anyway */
+    document.getElementById("cookie-banner").classList.add("show");
+  }
+}
+
+function dismissCookieBanner() {
+  document.getElementById("cookie-banner").classList.remove("show");
+  try { localStorage.setItem("sp_cookie_ok", "1"); } catch(e) {}
+}
+
+/* ── FAQ DATA ── */
+var faqs = [
+  { q:"Do I need to know anything about websites or coding?", a:"<strong>Not a single thing.</strong> You fill out a plain-English form and our team builds everything for you. If you can send a text message, you can work with Sympolar." },
+  { q:"What is hosting — and why do I need it?", a:"Think of <strong>hosting</strong> as renting a spot on the internet where your website lives. Just like a store needs a physical address, your website needs a home online. We handle all of this — it's included in your monthly plan." },
+  { q:"What is a domain or web address?", a:"A <strong>domain</strong> is your website's address — like <em>mybusiness.com</em>. It's what people type to find you. We help you get one and connect it to your site. You own it." },
+  { q:"How long does it take to build my website?", a:"Most sites go live in <strong>3–7 business days</strong> after you submit your onboarding form and we have your content (logo, photos, description). More complex requests may take a little longer — we'll tell you upfront." },
+  { q:"What if I want changes after it's live?", a:"Monthly updates are included. Just tell us what you want changed — new hours, new photos, new services — and we handle it. It's part of your plan." },
+  { q:"Do I own my website?", a:"Yes. The content, text, and images on your site are <strong>yours</strong>. Your domain belongs to you. We manage the hosting and upkeep, but your brand and site are always in your control." },
+  { q:"What is SEO?", a:"<strong>SEO</strong> stands for Search Engine Optimization — making sure Google can find your business when someone nearby searches for what you offer. We do basic SEO on every site." },
+  { q:"What does mobile-friendly mean?", a:"It means your website <strong>looks great and works perfectly on a phone or tablet</strong>, not just a computer. Since most people browse on their phones, this is critical — and it's built into every site we make." },
+  { q:"Can I get additional features beyond the basic plan?", a:"Absolutely. Additional features like booking systems, online payments, advanced SEO, and more are available. Get in touch through any of our forms and our team will walk you through what makes sense for your business — no pressure, no rush." },
+  { q:"What if I'm not happy with what you build?", a:"We work with you until you're satisfied before anything goes live. After launch, monthly support is always included. Long-term happy clients are the whole point." },
+];
+
+/* ── GLOSSARY DATA ── */
+var glossary = [
+  { term:"Website", def:"A collection of pages on the internet that represent your business — like a digital storefront open 24/7." },
+  { term:"Domain / Web Address", def:"Your website's unique address (like mybusiness.com). People type this to find you online. You own it." },
+  { term:"Hosting", def:"The service that keeps your website running on the internet, like renting space for your files." },
+  { term:"SSL Certificate", def:"The padlock icon in your browser. It means your site is secure. Included on every Sympolar site." },
+  { term:"SEO", def:"Search Engine Optimization — helping Google find and recommend your site to local customers." },
+  { term:"Mobile-Friendly", def:"Your website automatically adjusts to look and work great on phones and tablets." },
+  { term:"Contact Form", def:"A form on your website that lets customers send you a message directly — no email app needed." },
+  { term:"Booking System", def:"A tool that lets customers pick a time and book an appointment with you online — available as an add-on." },
+  { term:"Landing Page", def:"A focused single page designed to get visitors to take one specific action — call, book, or sign up." },
+  { term:"Analytics", def:"Data about how people use your website — how many visitors, which pages they view, where they came from." },
+  { term:"Responsive Design", def:"Design that automatically resizes and rearranges for any screen — phone, tablet, or desktop." },
+  { term:"DNS", def:"The system that connects your domain name to your website's server. We handle all DNS setup for you." },
+];
+
+/* ── RENDER FAQ ── */
+function renderFAQ() {
+  document.getElementById("faq-list").innerHTML = faqs.map(function(f, i) {
+    return '<div class="faq-item" id="fq' + i + '">'
+      + '<button class="faq-q" onclick="toggleFAQ(' + i + ')">'
+      + '<span>' + f.q + '</span><span class="faq-icon">+</span>'
+      + '</button>'
+      + '<div class="faq-a"><div class="faq-a-inner">' + f.a + '</div></div>'
+      + '</div>';
+  }).join("");
+}
+
+/* ── TOGGLE FAQ ── */
+function toggleFAQ(i) {
+  var el = document.getElementById("fq" + i);
+  var was = el.classList.contains("open");
+  document.querySelectorAll(".faq-item").forEach(function(e) { e.classList.remove("open"); });
+  if (!was) { el.classList.add("open"); }
+}
+
+/* ── RENDER GLOSSARY ── */
+function renderGlossary() {
+  document.getElementById("glossary-grid").innerHTML = glossary.map(function(g) {
+    return '<div class="card gloss-item">'
+      + '<div class="gloss-term">' + g.term + '</div>'
+      + '<div class="gloss-def">' + g.def + '</div>'
+      + '</div>';
+  }).join("");
+}
+
+/* ── NAV SMOOTH SCROLL + MOBILE CLOSE ── */
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener("click", function(e) {
+    var target = document.querySelector(a.getAttribute("href"));
+    if (!target) { return; }
+    e.preventDefault();
+    target.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("mobile-menu").classList.remove("open");
+    document.getElementById("burger").classList.remove("open");
+  });
+});
+
+/* ── HAMBURGER TOGGLE ── */
+document.getElementById("burger").addEventListener("click", function() {
+  this.classList.toggle("open");
+  document.getElementById("mobile-menu").classList.toggle("open");
+});
+
+/* ── ACTIVE NAV ON SCROLL ── */
+document.querySelectorAll("section[id]").forEach(function(s) {
+  new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        document.querySelectorAll("#desktop-nav a").forEach(function(l) { l.classList.remove("active"); });
+        var lnk = document.querySelector('#desktop-nav a[href="#' + s.id + '"]');
+        if (lnk) { lnk.classList.add("active"); }
+      }
+    });
+  }, { threshold: 0.45 }).observe(s);
+});
+
+/* ── SCROLL REVEAL ── */
+var revealObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add("visible");
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll(".section:not(.visible)").forEach(function(s) { revealObserver.observe(s); });
+
+/* ── INIT ── */
+renderFAQ();
+renderGlossary();
+initCookieBanner();
+</script>
+
+</body>
+</html>
