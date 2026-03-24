@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  SYMPOLAR LLC — Privacy Policy                               ║
+  ║  Author: Vincent Gonzalez                                    ║
+  ║  © 2026 SymPolar LLC. All rights reserved.                   ║
+  ║  Version: v1.0.0 — 2026-03                                   ║
+  ║  www.sympolar.com/sympolar-privacy.html                      ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+  /* ===== WORKFLOW STACK =====
+     File:         sympolar-privacy.html
+     Brand:        SymPolar LLC
+     Author:       Vincent Gonzalez
+     Version:      v1.0.0
+     Boot Order:   1. CSS  2. Static HTML render  (no JS required)
+     External Deps: Google Fonts only
+     Layout Target: 800px max-width centered prose
+     Browser Target: Modern evergreen + iOS Safari
+     Legal Coverage:
+       - GDPR (EU General Data Protection Regulation)
+       - CCPA (California Consumer Privacy Act)
+       - FTC (US Federal Trade Commission disclosure requirements)
+       - Google AdSense program policies
+       - Google Analytics disclosure
+  ===== END WORKFLOW STACK ===== */
+
+  /* ===== ASSET MANIFEST =====
+     icon.png   — SymPolar polar bear logo (local)
+     Google Fonts — Syne, DM Sans
+  ===== END ASSET MANIFEST ===== */
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Sympolar LLC</title>
+<meta name="robots" content="index, follow">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #050d16;
+  --bg2:    #070f1c;
+  --txt:    #eef4ff;
+  --muted:  #7a9dbf;
+  --muted2: #3d5f78;
+  --sky:    #87ceeb;
+  --sky15:  rgba(135,206,235,.15);
+  --sky25:  rgba(135,206,235,.25);
+  --mint:   #6de8c8;
+  --ice:    #d6eeff;
+  --glass:  rgba(255,255,255,.038);
+  --glassB: rgba(255,255,255,.07);
+  --r:      14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 70% 40% at 10% -5%, rgba(135,206,235,.06) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 90% 100%, rgba(109,232,200,.04) 0%, transparent 50%);
+  color: var(--txt);
+  font-family: "DM Sans", system-ui, sans-serif;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.site-header {
+  border-bottom: 1px solid var(--glassB);
+  background: rgba(5,13,22,.93);
+  backdrop-filter: blur(28px);
+  position: sticky; top: 0; z-index: 100;
+}
+.site-header-inner {
+  max-width: 900px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 62px;
+}
+.logo-link {
+  font-family: "Syne", sans-serif; font-weight: 800; font-size: 20px;
+  color: var(--ice); text-decoration: none; display: flex; align-items: center; gap: 10px;
+}
+.logo-link img { height: 30px; filter: brightness(0) invert(1); }
+.logo-link span { color: var(--sky); }
+.back-link {
+  font-size: 13.5px; color: var(--muted); text-decoration: none;
+  font-family: "Syne", sans-serif; font-weight: 600;
+  padding: 7px 14px; border-radius: 9px; border: 1px solid var(--glassB);
+  transition: all .2s;
+}
+.back-link:hover { color: var(--sky); border-color: var(--sky25); background: var(--sky15); }
+
+/* ── CONTENT ── */
+.doc-wrap {
+  max-width: 800px; margin: 0 auto; padding: 56px 24px 100px;
+}
+
+.doc-eyebrow {
+  font-family: "Syne", sans-serif; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em; color: var(--sky);
+  margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+}
+.doc-eyebrow::before {
+  content: ""; display: block; width: 28px; height: 2px;
+  background: linear-gradient(90deg, var(--sky), var(--mint)); border-radius: 2px;
+}
+
+.doc-title {
+  font-family: "Syne", sans-serif; font-weight: 800; font-size: clamp(30px,5vw,48px);
+  line-height: 1.1; letter-spacing: -.02em; margin-bottom: 12px;
+}
+.doc-title span {
+  background: linear-gradient(135deg, var(--sky), var(--mint));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.doc-meta {
+  font-size: 13.5px; color: var(--muted2); margin-bottom: 44px;
+  border-bottom: 1px solid var(--glassB); padding-bottom: 22px;
+}
+
+/* ── PROSE ── */
+.doc-body h2 {
+  font-family: "Syne", sans-serif; font-weight: 800; font-size: 20px;
+  color: var(--ice); margin: 44px 0 12px; letter-spacing: -.01em;
+  padding-top: 8px;
+}
+.doc-body h2:first-child { margin-top: 0; }
+.doc-body p {
+  color: var(--muted); font-size: 15.5px; line-height: 1.8;
+  margin-bottom: 16px;
+}
+.doc-body p strong { color: var(--txt); font-weight: 600; }
+.doc-body ul {
+  list-style: none; margin: 0 0 18px; padding: 0;
+}
+.doc-body ul li {
+  color: var(--muted); font-size: 15.5px; line-height: 1.75;
+  padding: 5px 0 5px 22px; position: relative;
+}
+.doc-body ul li::before {
+  content: "–"; position: absolute; left: 0; color: var(--sky); font-weight: 700;
+}
+.doc-body a { color: var(--sky); text-decoration: none; }
+.doc-body a:hover { text-decoration: underline; }
+
+.doc-section {
+  background: var(--glass); border: 1px solid var(--glassB);
+  border-radius: var(--r); padding: 28px 28px 24px; margin-bottom: 12px;
+}
+.doc-section h2 { margin-top: 0; border: none; }
+
+.highlight-box {
+  background: linear-gradient(135deg, rgba(135,206,235,.06), rgba(109,232,200,.03));
+  border: 1px solid var(--sky25); border-radius: var(--r);
+  padding: 22px 26px; margin: 28px 0;
+  font-size: 15px; color: var(--muted); line-height: 1.75;
+}
+.highlight-box strong { color: var(--sky); }
+
+/* ── FOOTER ── */
+.doc-footer {
+  border-top: 1px solid var(--glassB); padding: 28px 24px;
+  text-align: center; font-size: 13px; color: var(--muted2);
+  margin-top: 32px;
+}
+.doc-footer a { color: var(--muted); text-decoration: none; margin: 0 8px; }
+.doc-footer a:hover { color: var(--sky); }
+
+@media (max-width: 600px) {
+  .doc-wrap { padding: 36px 18px 80px; }
+  .doc-section { padding: 22px 18px; }
+  .highlight-box { padding: 18px 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="logo-link">
+      <img src="icon.png" alt="Sympolar">
+      Sym<span>polar</span>
+    </a>
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+</header>
+
+<div class="doc-wrap">
+  <div class="doc-eyebrow">Legal</div>
+  <h1 class="doc-title">Privacy <span>Policy</span></h1>
+  <div class="doc-meta">
+    Effective Date: March 1, 2026 &nbsp;·&nbsp; Last Updated: March 2026 &nbsp;·&nbsp; Sympolar LLC &nbsp;·&nbsp; sympolar.com
+  </div>
+
+  <div class="doc-body">
+
+    <div class="highlight-box">
+      <strong>Plain-English Summary:</strong> We collect only what you voluntarily give us through our forms. We use Google Analytics to understand site traffic and Google AdSense to display ads. We do not sell your personal information. If you're in California or the EU, you have specific rights over your data — details below.
+    </div>
+
+    <div class="doc-section">
+      <h2>1. Who We Are</h2>
+      <p>Sympolar LLC ("Sympolar," "we," "our," or "us") is a website design and hosting company based in Cape Coral, Florida, USA. Our website is located at <a href="https://www.sympolar.com">www.sympolar.com</a>. You can reach us at <a href="mailto:hello@sympolar.com">hello@sympolar.com</a>.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>2. Information We Collect</h2>
+      <p><strong>Information you provide directly:</strong></p>
+      <ul>
+        <li>Contact information submitted through our Quick Contact form (phone number or email address, and preferred contact time)</li>
+        <li>Business and personal information submitted through our full onboarding form (signup.html)</li>
+        <li>Any emails or messages you send to us directly</li>
+      </ul>
+      <p><strong>Information collected automatically:</strong></p>
+      <ul>
+        <li>Browser type, operating system, and device type</li>
+        <li>Pages visited, time on site, and referring URL</li>
+        <li>IP address (anonymized by default in Google Analytics)</li>
+        <li>Cookie identifiers (see Section 5 — Cookies)</li>
+      </ul>
+      <p>We do <strong>not</strong> collect payment information directly. Any billing is handled through third-party payment processors subject to their own privacy policies.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>3. How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Respond to your contact requests and reach out at your preferred time</li>
+        <li>Build, deliver, and support your website</li>
+        <li>Send service-related communications (project updates, billing, support)</li>
+        <li>Improve our website and understand how visitors use it</li>
+        <li>Comply with legal obligations</li>
+        <li>Serve relevant advertisements through Google AdSense (see Section 6)</li>
+      </ul>
+      <p>We do <strong>not</strong> use your information for automated decision-making or profiling that produces legal effects.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>4. How We Share Your Information</h2>
+      <p>We do <strong>not sell, rent, or trade</strong> your personal information to third parties.</p>
+      <p>We may share your information with:</p>
+      <ul>
+        <li><strong>Google LLC</strong> — for analytics (Google Analytics) and advertising (Google AdSense). Google may use this data per their own <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Privacy Policy</a>.</li>
+        <li><strong>Service providers</strong> — such as hosting, payment processing, or form submission services, only as needed to operate our business, under contractual data protection obligations.</li>
+        <li><strong>Legal authorities</strong> — if required by law, court order, or to protect the rights and safety of our users or business.</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>5. Cookies &amp; Tracking Technologies</h2>
+      <p>Our website uses cookies — small files stored in your browser — to:</p>
+      <ul>
+        <li>Remember your cookie consent preference (stored locally in your browser)</li>
+        <li>Analyze site traffic via <strong>Google Analytics</strong></li>
+        <li>Serve advertisements via <strong>Google AdSense</strong></li>
+      </ul>
+      <p>Google AdSense uses cookies to serve ads based on your prior visits to this and other websites. Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our site and/or other sites on the Internet.</p>
+      <p>You may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" rel="noopener noreferrer" target="_blank">Google Ad Settings</a> or <a href="https://optout.aboutads.info/" rel="noopener noreferrer" target="_blank">aboutads.info</a>. You can also manage cookies in your browser settings — note that disabling cookies may affect site functionality.</p>
+      <p>We do not use cookies to collect sensitive personal data or for cross-site tracking beyond what is described above.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>6. Google AdSense Disclosure</h2>
+      <p>This site participates in Google AdSense, a third-party advertising program operated by Google LLC. Google uses cookies to serve ads based on your visit to this site and other sites on the Internet. Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to our website or other websites.</p>
+      <p>As required by Google AdSense policies, we disclose that:</p>
+      <ul>
+        <li>Third-party vendors, including Google, use cookies to serve ads on our site</li>
+        <li>Google's use of the DoubleClick cookie enables it and its partners to serve ads based on your visit to this and other sites</li>
+        <li>Users may opt out of the DoubleClick cookie by visiting the <a href="https://adssettings.google.com/" rel="noopener noreferrer" target="_blank">Google Advertising Settings page</a></li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>7. Data Retention</h2>
+      <p>We retain your personal information only as long as necessary to provide our services or as required by law:</p>
+      <ul>
+        <li><strong>Contact form submissions:</strong> Retained in our systems until the business relationship ends or you request deletion, whichever comes first</li>
+        <li><strong>Client project data:</strong> Retained for the duration of our service agreement plus up to 2 years for legal and audit purposes</li>
+        <li><strong>Analytics data:</strong> Governed by Google Analytics retention settings (default 26 months)</li>
+      </ul>
+    </div>
+
+    <div class="doc-section">
+      <h2>8. Your Rights — California Residents (CCPA)</h2>
+      <p>Under the California Consumer Privacy Act (CCPA), California residents have the right to:</p>
+      <ul>
+        <li><strong>Know</strong> what personal information we collect, use, disclose, or sell</li>
+        <li><strong>Delete</strong> personal information we've collected about you (subject to certain exceptions)</li>
+        <li><strong>Opt out</strong> of the sale of personal information — <em>we do not sell personal information</em></li>
+        <li><strong>Non-discrimination</strong> — we will not discriminate against you for exercising your CCPA rights</li>
+      </ul>
+      <p>To exercise these rights, contact us at <a href="mailto:hello@sympolar.com">hello@sympolar.com</a>. We will respond within 45 days.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>9. Your Rights — EU/EEA Residents (GDPR)</h2>
+      <p>If you are located in the European Union or European Economic Area, you have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> the personal data we hold about you</li>
+        <li><strong>Rectify</strong> inaccurate personal data</li>
+        <li><strong>Erase</strong> your personal data ("right to be forgotten")</li>
+        <li><strong>Restrict</strong> or <strong>object</strong> to processing of your personal data</li>
+        <li><strong>Data portability</strong> — receive your data in a structured, commonly used format</li>
+        <li><strong>Withdraw consent</strong> at any time where processing is based on consent</li>
+      </ul>
+      <p>Our legal basis for processing is: <strong>legitimate interest</strong> (operating our business and responding to inquiries) and <strong>consent</strong> (for cookie-based analytics and advertising). To exercise your rights, contact us at <a href="mailto:hello@sympolar.com">hello@sympolar.com</a>.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>10. Children's Privacy</h2>
+      <p>Our services are not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If we learn we have inadvertently collected such information, we will delete it promptly. If you believe a child has provided us with personal information, please contact us at <a href="mailto:hello@sympolar.com">hello@sympolar.com</a>.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>11. Data Security</h2>
+      <p>We take reasonable technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. This includes using HTTPS/SSL on all our properties and limiting access to personal data to necessary personnel only.</p>
+      <p>No method of transmission over the internet or electronic storage is 100% secure. While we strive to protect your information, we cannot guarantee absolute security.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>12. Third-Party Links</h2>
+      <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of those sites. We encourage you to review the privacy policies of any third-party sites you visit.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>13. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated" date at the top of this page. Material changes will be communicated via notice on our website. Your continued use of sympolar.com after any changes constitutes your acceptance of the updated policy.</p>
+    </div>
+
+    <div class="doc-section">
+      <h2>14. Contact Us</h2>
+      <p>For any privacy-related questions, requests, or concerns, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:hello@sympolar.com">hello@sympolar.com</a></li>
+        <li><strong>Website:</strong> <a href="https://www.sympolar.com">www.sympolar.com</a></li>
+        <li><strong>Business:</strong> Sympolar LLC, Cape Coral, FL, USA</li>
+      </ul>
+      <p>We aim to respond to all privacy requests within 30 days.</p>
+    </div>
+
+  </div><!-- /doc-body -->
+</div><!-- /doc-wrap -->
+
+<footer class="doc-footer">
+  <div>© 2026 Sympolar LLC. All rights reserved.</div>
+  <div style="margin-top:10px;">
+    <a href="index.html">Home</a>
+    <a href="sympolar-privacy.html">Privacy Policy</a>
+    <a href="sympolar-terms.html">Terms of Service</a>
+    <a href="mailto:hello@sympolar.com">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
