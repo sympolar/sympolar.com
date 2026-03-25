@@ -2,38 +2,52 @@
 <!--
   ╔══════════════════════════════════════════════════════════════╗
   ║  SYMPOLAR LLC — Main Site                                    ║
-  ║  Author: Vincent Gonzalez                                    ║
   ║  © 2026 SymPolar LLC. All rights reserved.                   ║
-  ║  Version: v3.1.0 — 2026-03                                   ║
+  ║  Version: v3.2.0 — 2026-03                                   ║
   ║  www.sympolar.com                                            ║
   ╚══════════════════════════════════════════════════════════════╝
 
-  /* ===== LAST STABLE: v3.0.0 — 2026 ===== */
+  ╭─────────────────────────────────────────╮
+  │                                         │
+  │     Built with precision by             │
+  │                                         │
+  │   ██╗   ██╗██╗███╗   ██╗ ██████╗███████╗│
+  │   ██║   ██║██║████╗  ██║██╔════╝██╔════╝│
+  │   ██║   ██║██║██╔██╗ ██║██║     █████╗  │
+  │   ╚██╗ ██╔╝██║██║╚██╗██║██║     ██╔══╝  │
+  │    ╚████╔╝ ██║██║ ╚████║╚██████╗███████╗│
+  │     ╚═══╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝│
+  │                                         │
+  │   Vincent Gonzalez © 2026               │
+  │                                         │
+  ╰─────────────────────────────────────────╯
+
+  /* ===== LAST STABLE: v3.1.0 — 2026-03 — Quick Contact, cookie banner, legal pages ===== */
 
   /* ===== WORKFLOW STACK =====
      File:         sympolar-index.html
      Brand:        SymPolar LLC
      Author:       Vincent Gonzalez
-     Version:      v3.1.0
+     Version:      v3.2.0
      Boot Order:   1. CSS vars/reset  2. Layout/components  3. renderFAQ()
                    4. renderGlossary()  5. Scroll/nav observers
                    6. Quick Contact form handler  7. Cookie banner init
      Section Map:
-       ~1    HEAD / meta / fonts / CSS
-       ~420  HEADER + mobile nav
-       ~510  HERO
-       ~560  HOW IT WORKS
-       ~600  WHAT'S INCLUDED
-       ~650  ABOUT / TEAM
-       ~690  QUICK CONTACT (NEW v3.1.0)
-       ~760  GET STARTED / intake
-       ~820  FAQ + GLOSSARY
-       ~880  FINAL CTA
-       ~910  FOOTER (updated legal links)
-       ~950  WATERMARK FOOTER
-       ~970  COOKIE BANNER (NEW v3.1.0)
-       ~990  SCRIPT
-     External Deps: Google Fonts, Google Forms POST endpoint
+       ~1    HEAD / meta / GA4 / fonts / CSS
+       ~430  HEADER + mobile nav
+       ~520  HERO
+       ~570  HOW IT WORKS
+       ~610  WHAT'S INCLUDED
+       ~660  ABOUT / TEAM
+       ~700  QUICK CONTACT
+       ~770  GET STARTED / intake
+       ~830  FAQ + GLOSSARY
+       ~890  FINAL CTA
+       ~920  FOOTER (legal links)
+       ~960  WATERMARK FOOTER
+       ~980  COOKIE BANNER
+       ~1000 SCRIPT
+     External Deps: Google Fonts, Google Analytics (GA4), Google Forms POST
      Layout Target: 1100px max-width, mobile-first
      Browser Target: Modern evergreen + iOS Safari
   ===== END WORKFLOW STACK ===== */
@@ -41,6 +55,7 @@
   /* ===== ASSET MANIFEST =====
      icon.png              — SymPolar polar bear logo (local)
      Google Fonts          — Syne, DM Sans
+     GA4                   — G-17T51J6N23 (analytics only, no ads)
      Google Forms POST     — Quick Contact submission target
                              ACTION URL: see CONFIG BLOCK in script
   ===== END ASSET MANIFEST ===== */
@@ -49,11 +64,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sympolar — Professional Website Design &amp; Hosting</title>
+<title>Sympolar — Professional Website Design &amp; Hosting · St. Petersburg, FL</title>
+<!-- Google tag (gtag.js) — GA4 analytics only, zero ads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-17T51J6N23"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-17T51J6N23');
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════
-   SYMPOLAR V3.1 — Full Brand + Legal + Quick Contact
+   SYMPOLAR V3.2 — Round 2: Pricing · Titles · Copy · GA4 · No Ads
    Dark luxury · Ice · Precision · Human warmth
    ═══════════════════════════════════════════════════════════ */
 
@@ -525,8 +548,8 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
 .accent-line.left { margin: 0 0 24px; }
 
 /* ══════════════════════════════════════════════
-   COOKIE CONSENT BANNER — v3.1.0 NEW
-   AdSense-compliant non-blocking notice
+   COOKIE CONSENT BANNER — v3.2.0
+   Analytics notice — GA4 only, zero ads
    ══════════════════════════════════════════════ */
 #cookie-banner {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
@@ -660,21 +683,25 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
   <div class="badge-row">
     <span class="badge"><span class="dot dot-mint"></span>No tech skills needed</span>
     <span class="badge"><span class="dot dot-sky"></span>Live in 3–7 days</span>
-    <span class="badge"><span class="dot dot-coral"></span>Real humans, every step</span>
+    <span class="badge"><span class="dot dot-coral"></span>$2 a day to be seen</span>
+    <span class="badge"><span class="dot dot-sky"></span>Real humans, every step</span>
   </div>
 
   <h1>Your Business Deserves a <span class="grad">Professional Website</span></h1>
   <p class="sub">
-    We design your site, handle everything technical, and keep it running — so you focus on your customers, not your computer.
+    We design your site, handle everything technical, and keep it running — so you focus on your customers, not your computer.<br>
+    <span style="color:var(--sky);font-weight:600;">$60 a month. We handle everything.</span>
   </p>
+  <p style="color:var(--muted2);font-size:14px;margin-top:-28px;margin-bottom:36px;font-style:italic;">Sympolar. Because getting online should be simpler.</p>
 
   <div class="btn-group">
     <a href="https://sympolar.github.io/new/signup.html" class="btn btn-primary">🚀 Start My Website</a>
     <a href="#services" class="btn btn-outline">See What's Included</a>
   </div>
+  <p style="color:var(--muted2);font-size:13px;margin-top:16px;margin-bottom:0;">No commitment until you love what we build &nbsp;·&nbsp; No credit card &nbsp;·&nbsp; No tech skills</p>
 
   <div class="stats-row">
-    <div class="stat card"><div class="stat-num grad">$50</div><div class="stat-lbl">per month, all in</div></div>
+    <div class="stat card"><div class="stat-num grad">$60</div><div class="stat-lbl">per month, all in</div></div>
     <div class="stat card"><div class="stat-num grad">3–7</div><div class="stat-lbl">days to go live</div></div>
     <div class="stat card"><div class="stat-num grad">6+</div><div class="stat-lbl">pages built for you</div></div>
     <div class="stat card"><div class="stat-num grad">0</div><div class="stat-lbl">tech skills required</div></div>
@@ -719,8 +746,9 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
   <div class="included-card">
     <div class="included-tag">✦ &nbsp; The Sympolar Standard</div>
     <h3>Complete Website Package</h3>
-    <div class="price"><sup>$</sup>50<sub>/mo</sub></div>
-    <div class="price-note">Everything included. Hosting, support, updates — no extras required to get online.</div>
+    <div class="price"><sup>$</sup>60<sub>/mo</sub></div>
+    <div class="price-note" style="margin-bottom:8px;">$99 one-time design &amp; launch fee &nbsp;·&nbsp; then $60/month after that. That's it.</div>
+    <p style="color:var(--mint);font-size:13.5px;font-weight:600;margin-bottom:28px;">No commitment until you love what we build.</p>
 
     <ul class="feat-list">
       <li><strong>Custom-designed website</strong> — up to 6 pages</li>
@@ -749,17 +777,17 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
 <section id="about" class="section section-center">
   <div class="accent-line"></div>
   <h2>Built by People <span class="grad2">Who Get It</span></h2>
-  <p class="sub">We're a small team on a mission: help underrepresented and small business owners get online without stress, big budgets, or a computer science degree.</p>
+  <p class="sub">We're a small, St. Petersburg, FL-based team helping small business owners get online without stress, big budgets, or a computer science degree. Currently taking on our founding clients — every site gets our complete focus.</p>
   <div class="team-grid" style="max-width:640px;margin:44px auto 0;grid-template-columns:repeat(2,1fr);">
     <div class="card team-card">
       <div class="avatar av-j">J</div>
-      <div class="team-role">Founder &amp; Lead Designer</div>
+      <div class="team-role">Founder &amp; Chief Operating Officer</div>
       <h3>Josh</h3>
-      <p style="color:var(--muted);font-size:14px;margin-top:7px;line-height:1.65;">Committed to delivering quality from the top down in every facet of our infrastructure — because our clients deserve nothing less.</p>
+      <p style="color:var(--muted);font-size:14px;margin-top:7px;line-height:1.65;">Josh makes sure every client gets exactly what was promised. Nothing falls through the cracks.</p>
     </div>
     <div class="card team-card">
       <div class="avatar av-v">V</div>
-      <div class="team-role">Tech &amp; Systems</div>
+      <div class="team-role">Founder &amp; Chief Technical Officer</div>
       <h3>Vince</h3>
       <p style="color:var(--muted);font-size:14px;margin-top:7px;line-height:1.65;">Builds the systems behind the scenes so your site loads fast, stays secure, and works harder for your business.</p>
     </div>
@@ -774,7 +802,7 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
 <section id="contact" class="section section-center">
   <div class="accent-line"></div>
   <h2>Want Us to <span class="grad">Call You?</span></h2>
-  <p class="sub">Leave your number or email and pick the best time. We'll reach out — no preparation needed on your end.</p>
+  <p class="sub">Leave your number or email and pick the best time. We'll reach out — no preparation needed on your end. Or call us and we'll fill out the form together.</p>
 
   <div class="qc-card">
 
@@ -807,9 +835,9 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
       <div class="qc-row">
         <label class="qc-label">Best time to reach you</label>
         <div class="qc-time-group">
-          <button type="button" class="qc-time-btn" data-time="Morning (8am–12pm)" onclick="selectTime(this)">🌅 Morning</button>
-          <button type="button" class="qc-time-btn" data-time="Midday (12pm–4pm)"  onclick="selectTime(this)">☀️ Midday</button>
-          <button type="button" class="qc-time-btn" data-time="Evening (4pm–8pm)"  onclick="selectTime(this)">🌙 Evening</button>
+          <button type="button" class="qc-time-btn" data-time="Morning (8am–12pm)" onclick="selectTime(this)">🌅 Morning<span style="display:block;font-size:11px;font-weight:400;color:var(--muted2);margin-top:2px;">8am – 12pm</span></button>
+          <button type="button" class="qc-time-btn" data-time="Midday (12pm–4pm)"  onclick="selectTime(this)">☀️ Midday<span style="display:block;font-size:11px;font-weight:400;color:var(--muted2);margin-top:2px;">12pm – 4pm</span></button>
+          <button type="button" class="qc-time-btn" data-time="Evening (4pm–8pm)"  onclick="selectTime(this)">🌙 Evening<span style="display:block;font-size:11px;font-weight:400;color:var(--muted2);margin-top:2px;">4pm – 8pm</span></button>
         </div>
         <div class="qc-error" id="qc-time-err">Please select a preferred time.</div>
       </div>
@@ -911,7 +939,7 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
     <div class="accent-line" style="margin-bottom:24px;"></div>
     <h2 style="font-size:clamp(28px,4vw,42px);margin-bottom:14px;">Your website is waiting.</h2>
     <p style="color:var(--muted);font-size:16px;max-width:420px;margin:0 auto 32px;line-height:1.7;">
-      Professional design. Real humans. $50 a month. No commitment until you're happy with what we build.
+      Professional design. Real humans. $60 a month. No commitment until you're happy with what we build.
     </p>
     <a href="https://sympolar.github.io/new/signup.html" class="btn btn-primary" style="font-size:17px;padding:18px 44px;">🚀 Start My Website →</a>
     <p style="color:var(--muted2);font-size:12.5px;margin-top:18px;">No credit card. No tech skills. We respond within 1 business day.</p>
@@ -927,7 +955,7 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="fl"><img src="icon.png" alt="Sympolar"> Sympolar</div>
-      <p>Affordable website design &amp; hosting for small and underrepresented businesses. Built by humans, powered by care.</p>
+      <p>Affordable website design &amp; hosting for small businesses. St. Petersburg, FL — Florida-based team. Built by humans, powered by care.</p>
     </div>
     <div class="footer-col">
       <h4>Navigate</h4>
@@ -972,14 +1000,14 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
 </footer>
 
 <!-- ═════════════════════════════════════════
-     COOKIE CONSENT BANNER — v3.1.0 NEW
-     AdSense-compliant non-blocking notice
+     COOKIE CONSENT BANNER — v3.2.0
+     Analytics notice — GA4 only, zero ads
      READS: localStorage('sp_cookie_ok')
      WRITES: localStorage('sp_cookie_ok')
      ═════════════════════════════════════════ -->
 <div id="cookie-banner" role="region" aria-label="Cookie notice">
   <p>
-    We use cookies to serve ads and improve your experience. By using this site, you agree to our
+    We use cookies to understand how visitors use our site (Google Analytics). By continuing, you agree to our
     <a href="sympolar-privacy.html">Privacy Policy</a>
     &amp;
     <a href="sympolar-terms.html">Terms of Service</a>.
@@ -989,7 +1017,7 @@ footer { border-top: 1px solid var(--glassB); padding: 54px 24px 64px; margin-to
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   SYMPOLAR MAIN SITE — Script v3.1.0
+   SYMPOLAR MAIN SITE — Script v3.2.0
    Author: Vincent Gonzalez | © 2026 SymPolar LLC
    ═══════════════════════════════════════════════════════════ */
 
@@ -1068,6 +1096,12 @@ function submitQuickContact() {
     body: formData
   }).then(function() {
     /* no-cors returns opaque response — treat any resolution as success */
+    /* DECISION: fire GA4 event on Quick Contact success for conversion tracking */
+    try {
+      if (typeof gtag === 'function') {
+        gtag('event', 'quick_contact_submit', { event_category: 'lead', event_label: 'quick_contact' });
+      }
+    } catch(gaErr) { console.error('submitQuickContact: GA4 event failed —', gaErr); }
     document.getElementById("qc-form-body").style.display = "none";
     document.getElementById("qc-success").classList.add("show");
   }).catch(function(err) {
@@ -1086,9 +1120,10 @@ function submitQuickContact() {
 function initCookieBanner() {
   try {
     if (!localStorage.getItem("sp_cookie_ok")) {
+      /* DECISION: 2500ms delay — prevents banner firing before page renders on slow mobile */
       setTimeout(function() {
         document.getElementById("cookie-banner").classList.add("show");
-      }, 900);
+      }, 2500);
     }
   } catch(e) {
     /* localStorage blocked (private mode) — show banner anyway */
@@ -1113,6 +1148,8 @@ var faqs = [
   { q:"What does mobile-friendly mean?", a:"It means your website <strong>looks great and works perfectly on a phone or tablet</strong>, not just a computer. Since most people browse on their phones, this is critical — and it's built into every site we make." },
   { q:"Can I get additional features beyond the basic plan?", a:"Absolutely. Additional features like booking systems, online payments, advanced SEO, and more are available. Get in touch through any of our forms and our team will walk you through what makes sense for your business — no pressure, no rush." },
   { q:"What if I'm not happy with what you build?", a:"We work with you until you're satisfied before anything goes live. After launch, monthly support is always included. Long-term happy clients are the whole point." },
+  { q:"Can't I just use Wix or Squarespace?", a:"You can — but you'd have to build it yourself, update it yourself, and troubleshoot it yourself. With Sympolar, we handle all of that for you. No learning curve, no wasted weekends, no guessing. You get a professional result without doing any of the work." },
+  { q:"Is there a setup fee?", a:"Yes — a one-time <strong>$99 design &amp; launch fee</strong> covers everything we do to build your site. After that it's <strong>$60/month</strong> for hosting, updates, and support. That's $2 a day. No hidden charges, no surprise invoices." },
 ];
 
 /* ── GLOSSARY DATA ── */
